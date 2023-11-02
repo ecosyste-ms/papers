@@ -1,0 +1,16 @@
+{
+  "cron": [
+    {
+      "command": "bundle exec rake papers:sync",
+      "schedule": "0 * * * *"
+    },
+    {
+      "command": "bundle exec rake projects:sync",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "command": "bundle exec rake sitemap:refresh",
+      "schedule": "30 * * * *"
+    }
+  ]
+}

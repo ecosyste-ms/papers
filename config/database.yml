@@ -1,0 +1,24 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV.fetch("POSTGRES_USER") { '' } %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") { '' } %>
+  host:     <%= ENV.fetch("POSTGRES_HOST") { '' } %>
+  port:     <%= ENV.fetch("POSTGRES_PORT") { '' } %>
+  pool:     <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  variables:
+    statement_timeout: '300s'
+
+development:
+  <<: *default
+  database: papers_development
+
+test:
+  <<: *default
+  database: papers_test
+
+production:
+  <<: *default
+  database: papers_production
+  url: <%= ENV['DATABASE_URL'] %>

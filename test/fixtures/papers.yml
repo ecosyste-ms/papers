@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  doi: MyString
+  openalex_id: MyString
+  title: MyString
+  publication_date: 2023-11-02 10:41:40
+  openalex_data: 
+  mentions_count: 1
+
+two:
+  doi: MyString
+  openalex_id: MyString
+  title: MyString
+  publication_date: 2023-11-02 10:41:40
+  openalex_data: 
+  mentions_count: 1
