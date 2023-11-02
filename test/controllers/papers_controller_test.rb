@@ -2,12 +2,12 @@ require "test_helper"
 
 class PapersControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get papers_index_url
+    get papers_url
     assert_response :success
   end
 
   test "should get show" do
-    get papers_show_url
+    get paper_url(papers(:one))
     assert_response :success
   end
 end
