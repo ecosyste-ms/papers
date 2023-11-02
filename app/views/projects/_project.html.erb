@@ -4,6 +4,9 @@
       <%= link_to project, project_path(project.ecosystem, project.name) %>
     </h5>
 
+    <% if project.description %>
+      <%= project.description %><br/>
+    <% end %>
 
     <small class='text-muted'>
       Papers that mentioned: <%= number_with_delimiter project.mentions_count %><br>

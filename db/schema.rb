@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_02_104205) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_02_180228) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_02_104205) do
     t.integer "mentions_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_synced_at"
     t.index ["doi"], name: "index_papers_on_doi"
   end
 
@@ -43,6 +44,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_02_104205) do
     t.integer "mentions_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_synced_at"
     t.index ["ecosystem", "name"], name: "index_projects_on_ecosystem_and_name"
   end
 

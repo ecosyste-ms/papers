@@ -5,10 +5,15 @@
     </h5>
 
     <% if paper.title %>
-      <%= paper.title %><br>
+      <%= paper.title %><br/>
     <% end %>
 
     <small class='text-muted'>
+      <% if paper.openalex_data %>
+        Cited by: <%= number_with_delimiter paper.openalex_data['cited_by_count'] %><br>
+        Authors: <%= paper.openalex_data['authorships'].map { |a| a['author']['display_name'] }.join(', ').html_safe %><br/>
+      <% end %>
+      
       Software Mentions: <%= number_with_delimiter paper.mentions_count %><br>
       <% if paper.publication_date %>
         <span title="<%= paper.publication_date %>">Published: <%= time_ago_in_words paper.publication_date %> ago</span>
