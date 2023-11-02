@@ -1,6 +1,6 @@
 <div class="container-sm">
   <h2>
-    <%= @meta_title = "Most Mentioned Software Projects in Scientific Papers"%>
+    <%= @meta_title = "#{params[:ecosystem]} projects"%>
     <span class='badge bg-secondary'>
       <%= number_with_delimiter @pagy.count %>
     </span>

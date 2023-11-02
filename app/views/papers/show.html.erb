@@ -1,2 +1,23 @@
-<h1>Papers#show</h1>
-<p>Find me in app/views/papers/show.html.erb</p>
+<% @meta_title = "#{@paper} | Papers"%>
+
+<div class="container-sm">
+  <h2><%= link_to 'Papers', papers_path %>: <%= @paper %></h2>
+
+  <p>
+    <%= link_to @paper.doi_url, @paper.doi_url, target: :_blank %>
+  </p>
+
+  <!-- todo display paper details once synced -->
+
+  <!-- todo list mentioned projects -->
+
+  <h2>
+    Software Mentions
+    <span class='badge bg-secondary'>
+      <%= number_with_delimiter @paper.mentions_count %>
+    </span>
+  </h2>
+
+  <%= render @projects %>
+  <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>  
+</div>

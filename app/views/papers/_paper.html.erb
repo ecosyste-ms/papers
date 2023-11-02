@@ -1,0 +1,18 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">
+      <%= link_to paper, paper_path(paper) %>
+    </h5>
+
+    <% if paper.title %>
+      <%= paper.title %><br>
+    <% end %>
+
+    <small class='text-muted'>
+      Software Mentions: <%= number_with_delimiter paper.mentions_count %><br>
+      <% if paper.publication_date %>
+        <span title="<%= paper.publication_date %>">Published: <%= time_ago_in_words paper.publication_date %> ago</span>
+      <% end %>
+    </small>
+  </div>
+</div>

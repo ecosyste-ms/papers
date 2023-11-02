@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   
   mount PgHero::Engine, at: "pghero"
 
-  resources :projects, only: [:index, :show]
+  get '/projects', to: 'projects#index', as: 'projects'
+  get '/projects/:ecosystem', to: 'projects#ecosystem', as: 'projects_ecosystem'
+  get '/projects/:ecosystem/:name', to: 'projects#show', as: 'project'
 
-  resources :papers, only: [:index, :show]
+  resources :papers, only: [:index, :show], constraints: { id: /.*/ }
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

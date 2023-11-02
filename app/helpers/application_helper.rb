@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+  
   def meta_title
     [@meta_title, 'Ecosyste.ms: Papers'].compact.join(' | ')
   end
