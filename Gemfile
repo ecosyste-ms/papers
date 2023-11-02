@@ -36,6 +36,7 @@ gem 'octokit'
 gem "nokogiri"
 gem 'commonmarker'
 gem 'sitemap_generator'
+gem 'postgresql_cursor'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
