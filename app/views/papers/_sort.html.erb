@@ -1,0 +1,13 @@
+    <li class="nav-item ms-auto">
+      <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Sort
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item <%= 'active' if params[:sort] == 'title' %>" href="<%= url_for(sort: 'title', order: 'asc') %>">Name</a></li>
+          <li><a class="dropdown-item <%= 'active' if params[:sort] == 'doi' %>" href="<%= url_for(sort: 'doi', order: 'asc') %>">DOI</a></li>
+          <li><a class="dropdown-item <%= 'active' if params[:sort] == 'mentions_count' %>" href="<%= url_for(sort: 'mentions_count', order: 'desc') %>">Mentions</a></li>
+          <li><a class="dropdown-item <%= 'active' if params[:sort] == 'publication_date' %>" href="<%= url_for(sort: 'publication_date', order: 'asc') %>">Publication Date</a></li>
+        </ul>
+      </div>
+    </li>

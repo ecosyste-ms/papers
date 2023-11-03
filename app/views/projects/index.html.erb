@@ -6,6 +6,26 @@
     </span>
   </h2>
 
+  <ul class="nav nav-tabs my-3">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page">
+        Projects
+        <span class="badge bg-secondary rounded-pill">
+          <%= number_with_delimiter @pagy.count %>
+        </span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<%= papers_path %>">
+        Papers
+        <span class="badge bg-secondary rounded-pill">
+          <%= number_with_delimiter Paper.count %>
+        </span>
+      </a>
+    </li>
+    <%= render 'sort' %>
+  </ul>
+
   <div class="row">
     <div class="col-lg">
       <%= render @projects %>

@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
     scope = Project.all
 
     if params[:sort].present? || params[:order].present?
-      sort = params[:sort] || 'published_at'
+      sort = params[:sort] || 'mentions_count'
       order = params[:order] || 'desc'
       sort_options = sort.split(',').zip(order.split(',')).to_h
       scope = scope.order(sort_options)
@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
     scope = Project.where(ecosystem: params[:ecosystem])
 
     if params[:sort].present? || params[:order].present?
-      sort = params[:sort] || 'published_at'
+      sort = params[:sort] || 'mentions_count'
       order = params[:order] || 'desc'
       sort_options = sort.split(',').zip(order.split(',')).to_h
       scope = scope.order(sort_options)
