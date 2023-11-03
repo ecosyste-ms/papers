@@ -32,6 +32,6 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.where(ecosystem: params[:ecosystem], name: params[:name]).first
     raise ActiveRecord::RecordNotFound unless @project
-    @pagy, @papers = pagy(@project.papers.order('doi asc'))
+    @pagy, @papers = pagy(@project.papers.order('mentions_count DESC'))
   end
 end

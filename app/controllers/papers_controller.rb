@@ -16,6 +16,6 @@ class PapersController < ApplicationController
 
   def show
     @paper = Paper.find_by_doi(params[:id])
-    @pagy, @projects = pagy(@paper.projects.order('ecosystem asc'))
+    @pagy, @projects = pagy(@paper.projects.order('ecosystem asc, name asc'))
   end
 end
