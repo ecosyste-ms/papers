@@ -1,15 +1,37 @@
 <% @meta_title = "#{@project} | Projects"%>
 
 <div class="container-sm">
-  <h2><%= link_to 'Projects', projects_path %>: <%= link_to @project.ecosystem, projects_ecosystem_path(@project.ecosystem) %>: <%= @project %></h2>
+  <h2><%= link_to 'Projects', projects_path %>: <%= link_to @project.ecosystem, projects_ecosystem_path(@project.ecosystem) %>: <%= @project.name %></h2>
 
   <p>
     <%= link_to @project.ecosystems_url, @project.ecosystems_url, target: :_blank %>
   </p>
 
-  <!-- todo display project details once synced -->
+  <% if @project.package %>
 
-  <!-- todo list mentioned projects -->
+      <p>
+      <small class='text-muted'>
+        <%= @project.package['description'] %>
+
+        <% if @project.package['versions_count'] %>
+          <br/><%= pluralize number_with_delimiter(@project.package['versions_count']), 'version' %>
+        <% end %>
+
+        <% if @project.package['latest_release_published_at'] %>
+          <br/><span title="<%= @project.package['latest_release_published_at'] %>">Latest release: <%= time_ago_in_words @project.package['latest_release_published_at'] %> ago</span>
+        <% end %>
+
+        <% if @project.package['dependent_packages_count'] && @project.package['dependent_packages_count'] > 0 %>
+          <br/><%= pluralize number_with_delimiter(@project.package['dependent_packages_count']), 'dependent package' %>
+        <% end %>
+
+        <% if @project.package['downloads'] %>
+          <br/><%= number_with_delimiter(@project.package['downloads']) %> downloads <%= download_period(@project.package['downloads_period']) %>
+        <% end %>
+      </small>
+    </p>
+
+  <% end %>
 
   <h2>
     Papers Mentioning <%= @project.name %>
