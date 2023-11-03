@@ -11,7 +11,7 @@
     <small class='text-muted'>
       <% if paper.openalex_data %>
         Cited by: <%= number_with_delimiter paper.openalex_data['cited_by_count'] %><br>
-        Authors: <%= paper.openalex_data['authorships'].map { |a| a['author']['display_name'] }.join(', ').html_safe %><br/>
+        Author(s): <%= paper.openalex_data['authorships'].map { |a| a['author']['display_name'] }.join(', ').html_safe %><br/>
       <% end %>
       
       Software Mentions: <%= number_with_delimiter paper.mentions_count %><br>

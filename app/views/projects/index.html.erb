@@ -1,11 +1,6 @@
-<div class="container-sm">
-  <h2>
-    <%= @meta_title = "Most Mentioned Software Projects in Scientific Papers"%>
-    <span class='badge bg-secondary'>
-      <%= number_with_delimiter @pagy.count %>
-    </span>
-  </h2>
+<% @meta_title = "Packages with Software Mentions in Scientific Papers"%>
 
+<div class="container-sm">
   <ul class="nav nav-tabs my-3">
     <li class="nav-item">
       <a class="nav-link active" aria-current="page">
