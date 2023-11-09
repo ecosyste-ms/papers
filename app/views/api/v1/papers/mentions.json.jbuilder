@@ -1,0 +1,1 @@
+json.array! @mentions, partial: 'api/v1/mentions/mention', as: :mention

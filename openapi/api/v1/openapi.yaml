@@ -1,0 +1,329 @@
+openapi: 3.0.1
+info:
+  title: "Ecosyste.ms: Papers"
+  description: "An open API service providing mapping between scientific papers and software projects that are mentioned in them."
+  contact:
+    name: Ecosyste.ms
+    email: support@ecosyste.ms
+    url: https://ecosyste.ms 
+  version: 1.0.0
+  license:
+    name: CC-BY-SA-4.0
+    url: https://creativecommons.org/licenses/by-sa/4.0/
+externalDocs:
+  description: GitHub Repository
+  url: https://github.com/ecosyste-ms/papers
+servers:
+- url: https://papers.ecosyste.ms/api/v1
+paths:
+  /papers:
+    get:
+      summary: "List papers"
+      description: "List all papers"
+      operationId: "listPapers"
+      tags:
+      - "papers"
+      parameters:
+      - name: page
+        in: query
+        description: pagination page number 
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of records to return 
+        required: false
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: field to order results by
+        required: false
+        schema:
+          type: string
+      - name: order
+        in: query
+        description: direction to order results by
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: "A list of papers"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Paper"
+  /papers/{doi}:
+    get:
+      summary: "Get paper"
+      description: "Get a paper by DOI"
+      operationId: "getPaper"
+      tags:
+      - "papers"
+      parameters:
+      - name: doi
+        in: path
+        description: DOI of paper to return
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: "A paper"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Paper"
+  /papers/{doi}/mentions:
+    get:
+      summary: "List mentions for paper"
+      description: "List all mentions for a paper"
+      operationId: "listPaperMentions"
+      tags:
+      - "papers"
+      parameters:
+      - name: doi
+        in: path
+        description: DOI of paper to return mentions for
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: pagination page number 
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of records to return 
+        required: false
+        schema:
+          type: integer
+      responses:
+        200:
+          description: "A list of mentions"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Mention"
+  /projects:
+    get:
+      summary: "List projects"
+      description: "List all projects"
+      operationId: "listProjects"
+      tags:
+      - "projects"
+      parameters:
+      - name: page
+        in: query
+        description: pagination page number 
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of records to return 
+        required: false
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: field to order results by
+        required: false
+        schema:
+          type: string
+      - name: order
+        in: query
+        description: direction to order results by
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: "A list of projects"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+  /projects/{ecosystem}:
+    get:
+      summary: "List projects by ecosystem"
+      description: "List all projects in an ecosystem"
+      operationId: "listProjectsByEcosystem"
+      tags:
+      - "projects"
+      parameters:
+      - name: ecosystem
+        in: path
+        description: ecosystem to filter by
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: pagination page number 
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of records to return 
+        required: false
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: field to order results by
+        required: false
+        schema:
+          type: string
+      - name: order
+        in: query
+        description: direction to order results by
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: "A list of projects"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+  /projects/{ecosystem}/{name}:
+    get:
+      summary: "Get project"
+      description: "Get a project by ecosystem and name"
+      operationId: "getProject"
+      tags:
+      - "projects"
+      parameters:
+      - name: ecosystem
+        in: path
+        description: ecosystem of project to return
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: name of project to return
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: "A project"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+  /projects/{ecosystem}/{name}/mentions:
+    get:
+      summary: "List mentions for project"
+      description: "List all mentions for a project"
+      operationId: "listProjectMentions"
+      tags:
+      - "projects"
+      parameters:
+      - name: ecosystem
+        in: path
+        description: ecosystem of project to return mentions for
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: name of project to return mentions for
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: pagination page number 
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of records to return 
+        required: false
+        schema:
+          type: integer
+      responses:
+        200:
+          description: "A list of mentions"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Mention"
+components:
+  schemas:
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+        czi_id:
+          type: string
+        ecosystem:
+          type: string
+        name:
+          type: string
+        package:
+          type: object
+        mentions_count:
+          type: integer
+        last_synced_at:
+          type: string
+          format: date-time
+        project_url:
+          type: string
+        mentions_url:
+          type: string
+    Paper:
+      type: object
+      properties:
+        id:
+          type: integer
+        doi:
+          type: string
+        openalex_id:
+          type: string
+        title:
+          type: string
+        publication_date:
+          type: string
+          format: date-time
+        mentions_count:
+          type: integer
+        last_synced_at:
+          type: string
+          format: date-time
+        openalex_data:
+          type: object
+        paper_url:
+          type: string
+        mentions_url:
+          type: string
+    Mention:
+      type: object
+      properties:
+        id:
+          type: integer
+        paper_url:
+          type: string
+        project_url:
+          type: string

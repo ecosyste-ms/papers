@@ -1,4 +1,4 @@
-class PapersController < ApplicationController
+class Api::V1::PapersController < Api::V1::ApplicationController
   def index
     scope = Paper.all
 
@@ -7,8 +7,6 @@ class PapersController < ApplicationController
       order = params[:order] || 'desc'
       sort_options = sort.split(',').zip(order.split(',')).to_h
       scope = scope.order(sort_options)
-    else
-      scope = scope.order('mentions_count DESC')
     end
 
     @pagy, @papers = pagy(scope)
@@ -16,6 +14,10 @@ class PapersController < ApplicationController
 
   def show
     @paper = Paper.find_by_doi!(params[:id])
-    @pagy, @projects = pagy(@paper.projects.order('ecosystem asc, name asc'))
+  end
+
+  def mentions
+    @paper = Paper.find_by_doi!(params[:id])
+    @pagy, @mentions = pagy(@paper.mentions.includes(:paper))
   end
 end
