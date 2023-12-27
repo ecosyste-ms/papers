@@ -89,9 +89,6 @@ GEM
       popper_js (>= 2.11.8, < 3)
     builder (3.2.4)
     chartkick (5.0.5)
-    commonmarker (1.0.0-aarch64-linux)
-    commonmarker (1.0.0-arm64-darwin)
-    commonmarker (1.0.0-x86_64-linux)
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     counter_culture (3.5.0)
@@ -322,7 +319,6 @@ DEPENDENCIES
   bootsnap
   bootstrap
   chartkick
-  commonmarker
   counter_culture
   debug
   dotenv-rails

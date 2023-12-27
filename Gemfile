@@ -34,7 +34,6 @@ gem 'faraday-typhoeus'
 gem 'packageurl-ruby'
 gem 'octokit'
 gem "nokogiri"
-gem 'commonmarker'
 gem 'sitemap_generator'
 gem 'postgresql_cursor'
 
