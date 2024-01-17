@@ -89,7 +89,7 @@ GEM
       popper_js (>= 2.11.8, < 3)
     builder (3.2.4)
     chartkick (5.0.5)
-    concurrent-ruby (1.2.2)
+    concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     counter_culture (3.5.1)
       activerecord (>= 4.2)
