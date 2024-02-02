@@ -32,7 +32,6 @@ gem "groupdate"
 gem 'jquery-rails'
 gem 'faraday-typhoeus'
 gem 'packageurl-ruby'
-gem 'octokit'
 gem "nokogiri"
 gem 'sitemap_generator'
 gem 'postgresql_cursor'
