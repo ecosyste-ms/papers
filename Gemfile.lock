@@ -99,9 +99,6 @@ GEM
       rexml
     crass (1.0.6)
     date (3.3.4)
-    debug (1.9.1)
-      irb (~> 1.10)
-      reline (>= 0.3.8)
     dotenv (3.1.0)
     dotenv-rails (3.1.0)
       dotenv (= 3.1.0)
@@ -319,7 +316,6 @@ DEPENDENCIES
   bootstrap
   chartkick
   counter_culture
-  debug
   dotenv-rails
   faraday
   faraday-follow_redirects
@@ -352,7 +348,6 @@ DEPENDENCIES
   sitemap_generator
   spdx (= 2.0.12)
   sprockets-rails
-  tzinfo-data
   web-console
   webmock
 

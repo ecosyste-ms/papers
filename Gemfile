@@ -8,7 +8,6 @@ gem "sprockets-rails"
 gem "pg", "~> 1.5"
 gem "puma", "~> 6.4"
 gem "jbuilder"
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 gem "sassc-rails"
 gem "counter_culture"
@@ -37,7 +36,6 @@ gem 'sitemap_generator'
 gem 'postgresql_cursor'
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'dotenv-rails'
 end
 
