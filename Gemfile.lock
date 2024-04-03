@@ -179,7 +179,7 @@ GEM
     nokogiri (1.16.3-x86_64-linux)
       racc (~> 1.4)
     packageurl-ruby (0.1.0)
-    pagy (7.0.11)
+    pagy (8.0.1)
     pg (1.5.6)
     pg_query (5.1.0)
       google-protobuf (>= 3.22.3)
@@ -191,7 +191,7 @@ GEM
       activerecord (>= 6.0)
     psych (5.1.2)
       stringio
-    public_suffix (5.0.4)
+    public_suffix (5.0.5)
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.7.3)
