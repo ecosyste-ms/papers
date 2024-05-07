@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.0"
+ruby "3.3.1"
 
 gem "rails", "~> 7.1.3"
 gem "sprockets-rails"
@@ -34,6 +34,7 @@ gem 'packageurl-ruby'
 gem "nokogiri"
 gem 'sitemap_generator'
 gem 'postgresql_cursor'
+gem 'csv'
 
 group :development, :test do
   gem 'dotenv-rails'
