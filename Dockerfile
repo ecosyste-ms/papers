@@ -1,4 +1,4 @@
-FROM ruby:3.3.1-slim-bullseye
+FROM ruby:3.3.3-slim-bullseye
 
 ENV APP_ROOT /usr/src/app
 ENV DATABASE_PORT 5432
@@ -19,6 +19,7 @@ RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrad
   tzdata \
   netcat \
   libclang-dev \
+  git \
  && gem update --system \
  && gem install bundler foreman \
  && bundle config --global frozen 1 \
