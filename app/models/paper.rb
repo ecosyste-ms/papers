@@ -1,6 +1,10 @@
 class Paper < ApplicationRecord
   has_many :mentions
   has_many :projects, through: :mentions
+  scope :with_openalex_id, -> { where.not(openalex_id: nil) }
+  
+  scope :without_urls, -> { where(urls: []) }
+  scope :with_urls, -> { where.not(urls: []) }
 
   def to_param
     doi

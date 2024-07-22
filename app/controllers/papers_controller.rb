@@ -1,6 +1,6 @@
 class PapersController < ApplicationController
   def index
-    scope = Paper.all
+    scope = Paper.with_openalex_id
 
     if params[:sort].present? || params[:order].present?
       sort = params[:sort] || 'mentions_count'
