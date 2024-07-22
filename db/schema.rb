@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_09_145436) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_19_151343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_09_145436) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_synced_at"
+    t.text "urls", default: [], array: true
     t.index ["doi"], name: "index_papers_on_doi"
   end
 

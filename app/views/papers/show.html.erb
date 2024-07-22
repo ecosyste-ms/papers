@@ -7,6 +7,10 @@
     <%= link_to @paper.doi_url, @paper.doi_url, target: :_blank %>
   </p>
 
+  <% if @paper.title %>
+    <p><%= @paper.title %></p>
+  <% end %>
+
   <% if @paper.openalex_data %>
     <p>
       <% if @paper.openalex_data %>
@@ -17,10 +21,23 @@
     </p>
   <% end %>
 
+  <% if @paper.urls.any? %>
+    <h2>URLs</h2>
+
+    <ul>
+      <% @paper.urls.each do |url| %>
+        <% next unless url.starts_with?('http') %>
+        <li>
+          <%= link_to url, url, target: :_blank %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <h2>
     Software Mentions
     <span class='badge bg-secondary'>
-      <%= number_with_delimiter @paper.mentions_count %>
+      <%= number_with_delimiter(@paper.mentions_count || 0) %>
     </span>
   </h2>
 
