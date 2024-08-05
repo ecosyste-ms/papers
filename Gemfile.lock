@@ -79,12 +79,12 @@ GEM
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     afm (0.2.2)
-    autoprefixer-rails (10.4.16.0)
+    autoprefixer-rails (10.4.19.0)
       execjs (~> 2)
     base64 (0.2.0)
     bigdecimal (3.1.8)
     bindex (0.8.1)
-    bootsnap (1.18.3)
+    bootsnap (1.18.4)
       msgpack (~> 1.2)
     bootstrap (5.3.3)
       autoprefixer-rails (>= 9.1.0)
@@ -111,7 +111,7 @@ GEM
     ethon (0.16.0)
       ffi (>= 1.15.0)
     execjs (2.9.1)
-    faraday (2.10.0)
+    faraday (2.10.1)
       faraday-net_http (>= 2.0, < 3.2)
       logger
     faraday-follow_redirects (0.3.0)
@@ -129,18 +129,18 @@ GEM
     fuzzy_match (2.1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (4.27.2-aarch64-linux)
+    google-protobuf (4.27.3-aarch64-linux)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.27.2-arm64-darwin)
+    google-protobuf (4.27.3-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.27.2-x86_64-linux)
+    google-protobuf (4.27.3-x86_64-linux)
       bigdecimal
       rake (>= 13)
     groupdate (6.4.0)
       activesupport (>= 6.1)
-    hashdiff (1.1.0)
+    hashdiff (1.1.1)
     hashery (2.1.2)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
@@ -190,7 +190,7 @@ GEM
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
     packageurl-ruby (0.1.0)
-    pagy (9.0.4)
+    pagy (9.0.5)
     pdf-reader (2.12.0)
       Ascii85 (~> 1.0)
       afm (~> 0.2.1)
@@ -264,7 +264,7 @@ GEM
       psych (>= 4.0.0)
     reline (0.5.9)
       io-console (~> 0.5)
-    rexml (3.3.2)
+    rexml (3.3.4)
       strscan
     rswag-api (2.13.0)
       activesupport (>= 3.1, < 7.2)
@@ -295,7 +295,7 @@ GEM
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
-    sprockets-rails (3.5.1)
+    sprockets-rails (3.5.2)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
@@ -380,4 +380,4 @@ RUBY VERSION
    ruby 3.3.4p53
 
 BUNDLED WITH
-   2.5.16
+   2.5.17
