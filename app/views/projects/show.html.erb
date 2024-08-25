@@ -1,4 +1,5 @@
 <% @meta_title = "#{@project} | Projects"%>
+<% @meta_description = "Scientific papers mentioning #{@project.name}" %>
 
 <div class="container-sm">
   <h2><%= link_to 'Projects', projects_path %>: <%= link_to @project.ecosystem, projects_ecosystem_path(@project.ecosystem) %>: <%= @project.name %></h2>
