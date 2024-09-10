@@ -36,6 +36,7 @@ gem 'sitemap_generator'
 gem 'postgresql_cursor'
 gem 'csv'
 gem 'pdf-reader'
+gem 'ostruct'
 
 group :development, :test do
   gem 'dotenv-rails'
