@@ -6,7 +6,15 @@ module ApplicationHelper
   end
 
   def meta_description
-    @meta_description || 'An open API service providing mapping between scientific papers and software projects that are mentioned in them.'
+    @meta_description || app_description
+  end
+
+  def app_name
+    "Papers"
+  end
+
+  def app_description
+    'An open API service providing mapping between scientific papers and software projects that are mentioned in them.'
   end
 
   def sort_by_semver_range(hash, limit)
