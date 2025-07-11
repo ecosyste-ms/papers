@@ -41,4 +41,25 @@ module ApplicationHelper
     return unless url =~ /\A#{URI::regexp}\z/
     sanitize_url(url, :schemes => ['http', 'https'])
   end
+
+  def science_score_badge(score)
+    return unless score.present?
+    
+    case score
+    when 0..19
+      badge_class = "bg-danger"  # Uses ecosyste.ms orange-dark
+      badge_text = "Unlikely Science"
+    when 20..39
+      badge_class = "bg-warning"  # Uses ecosyste.ms orange-light
+      badge_text = "Possibly Science"
+    when 40..59
+      badge_class = "bg-info"  # Uses ecosyste.ms purple-light
+      badge_text = "Likely Science"
+    else
+      badge_class = "bg-success"  # Uses ecosyste.ms green-dark
+      badge_text = "Very Likely Science"
+    end
+    
+    content_tag(:span, "#{badge_text} (#{score})", class: "badge #{badge_class} me-2")
+  end
 end

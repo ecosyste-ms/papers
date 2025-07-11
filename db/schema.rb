@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_19_151343) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_11_135603) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "exports", force: :cascade do |t|
     t.string "date"
@@ -54,7 +54,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_151343) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_synced_at"
+    t.json "commits_data"
+    t.text "readme_content"
+    t.json "educational_commit_emails"
+    t.integer "science_score"
     t.index ["ecosystem", "name"], name: "index_projects_on_ecosystem_and_name"
+    t.index ["science_score"], name: "index_projects_on_science_score"
   end
-
 end

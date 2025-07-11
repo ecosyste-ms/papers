@@ -7,6 +7,7 @@
           <li><a class="dropdown-item <%= 'active' if params[:sort] == 'ecosystem' %>" href="<%= url_for(sort: 'ecosystem', order: 'asc') %>">Ecosystem</a></li>
           <li><a class="dropdown-item <%= 'active' if params[:sort] == 'name' %>" href="<%= url_for(sort: 'name', order: 'asc') %>">Name</a></li>
           <li><a class="dropdown-item <%= 'active' if params[:sort] == 'mentions_count' %>" href="<%= url_for(sort: 'mentions_count', order: 'desc') %>">Mentions</a></li>
+          <li><a class="dropdown-item <%= 'active' if params[:sort] == 'science_score' %>" href="<%= url_for(sort: 'science_score', order: 'desc') %>">Science Score</a></li>
         </ul>
       </div>
     </li>
