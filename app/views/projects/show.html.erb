@@ -10,97 +10,153 @@
 
   <% if @project.package %>
 
-      <p>
-      <small class='text-muted'>
-        <%= @project.description %>
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          <small class='text-muted'>
+            <%= @project.description %>
 
-        <% if @project.package['versions_count'] %>
-          <br/><%= pluralize number_with_delimiter(@project.package['versions_count']), 'version' %>
+            <% if @project.package['versions_count'] %>
+              <br/><%= pluralize number_with_delimiter(@project.package['versions_count']), 'version' %>
+            <% end %>
+
+            <% if @project.package['latest_release_published_at'] %>
+              <br/><span title="<%= @project.package['latest_release_published_at'] %>">Latest release: <%= time_ago_in_words @project.package['latest_release_published_at'] %> ago</span>
+            <% end %>
+
+            <% if @project.package['dependent_packages_count'] && @project.package['dependent_packages_count'] > 0 %>
+              <br/><%= pluralize number_with_delimiter(@project.package['dependent_packages_count']), 'dependent package' %>
+            <% end %>
+
+            <% if @project.package['downloads'] %>
+              <br/><%= number_with_delimiter(@project.package['downloads']) %> downloads <%= download_period(@project.package['downloads_period']) %>
+            <% end %>
+          </small>
+        </p>
+
+        <!-- Enhanced Data Display -->
+        <% if @project.commits_data.present? || @project.readme_content.present? || @project.educational_commit_emails.present? %>
+          <div class="card mb-3">
+            <div class="card-header">
+              <h6 class="card-title mb-0">Enhanced Analysis</h6>
+            </div>
+            <div class="card-body">
+              <% if @project.educational_commit_emails.present? %>
+                <div class="mb-2">
+                  <strong>Educational Contributors:</strong>
+                  <% @project.educational_commit_emails.each do |email| %>
+                    <span class="badge bg-info me-1"><%= email %></span>
+                  <% end %>
+                </div>
+              <% end %>
+
+              <% if @project.commits_data.present? %>
+                <div class="mb-2">
+                  <strong>Repository Activity:</strong>
+                  <% if @project.commits_data['commits_count'] %>
+                    <%= number_with_delimiter(@project.commits_data['commits_count']) %> commits
+                  <% end %>
+                  <% if @project.commits_data['committers_count'] %>
+                    by <%= @project.commits_data['committers_count'] %> contributors
+                  <% end %>
+                </div>
+              <% end %>
+
+              <% if @project.repository_owner_record.present? %>
+                <div class="mb-2">
+                  <strong>Repository Owner:</strong>
+                  <% owner = @project.repository_owner_record %>
+                  <%= owner['name'] %> (<%= owner['kind'] %>)
+                  <% if owner['description'].present? %>
+                    <br/><small class="text-muted"><%= owner['description'] %></small>
+                  <% end %>
+                  <% if @project.academic_owner? %>
+                    <span class="badge bg-success ms-1">Academic</span>
+                  <% elsif @project.institutional_owner? %>
+                    <span class="badge bg-info ms-1">Institutional</span>
+                  <% end %>
+                </div>
+              <% end %>
+
+              <% if @project.readme_content.present? %>
+                <div class="mb-2">
+                  <strong>README Analysis:</strong>
+                  <% readme_text = @project.readme_content.downcase %>
+                  <% if readme_text.match?(/doi\.org\/10\.\d+/) %>
+                    <span class="badge bg-success me-1">DOI Found</span>
+                  <% end %>
+                  <% if readme_text.match?(/arxiv\.org\/abs\/\d+/) %>
+                    <span class="badge bg-success me-1">ArXiv Preprint</span>
+                  <% end %>
+                  <% if @project.package.dig('repo_metadata', 'metadata', 'files', 'citation').present? %>
+                    <span class="badge bg-success me-1">CITATION.cff</span>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
         <% end %>
-
-        <% if @project.package['latest_release_published_at'] %>
-          <br/><span title="<%= @project.package['latest_release_published_at'] %>">Latest release: <%= time_ago_in_words @project.package['latest_release_published_at'] %> ago</span>
-        <% end %>
-
-        <% if @project.package['dependent_packages_count'] && @project.package['dependent_packages_count'] > 0 %>
-          <br/><%= pluralize number_with_delimiter(@project.package['dependent_packages_count']), 'dependent package' %>
-        <% end %>
-
-        <% if @project.package['downloads'] %>
-          <br/><%= number_with_delimiter(@project.package['downloads']) %> downloads <%= download_period(@project.package['downloads_period']) %>
-        <% end %>
-      </small>
-    </p>
-
-    <!-- Science Score Display -->
-    <% if @project.science_score.present? %>
-      <div class="mb-3">
-        <%= science_score_badge(@project.science_score) %>
       </div>
-    <% end %>
 
-    <!-- Enhanced Data Display -->
-    <% if @project.commits_data.present? || @project.readme_content.present? || @project.educational_commit_emails.present? %>
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="card-title mb-0">Enhanced Analysis</h5>
-        </div>
-        <div class="card-body">
-          <% if @project.educational_commit_emails.present? %>
-            <div class="mb-2">
-              <strong>Educational Contributors:</strong>
-              <% @project.educational_commit_emails.each do |email| %>
-                <span class="badge bg-info me-1"><%= email %></span>
-              <% end %>
+      <div class="col-md-6">
+        <!-- Science Score Display -->
+        <% if @project.science_score.present? %>
+          <% breakdown = @project.science_score_breakdown %>
+          <% if breakdown.components.any? %>
+            <div class="card">
+              <div class="card-header">
+                <h6 class="card-title mb-0">Science Score: <%= breakdown.final_score %>/100</h6>
+              </div>
+              <div class="card-body">
+                <div class="mb-2">
+                  <strong>Starting Score:</strong> 100 points
+                </div>
+                
+                <% if breakdown.bonuses.any? %>
+                  <div class="mb-2">
+                    <h6 class="text-success mb-1">Bonuses:</h6>
+                    <ul class="list-unstyled mb-0">
+                      <% breakdown.bonuses.each do |component| %>
+                        <% next if component[:points] == 0 %>
+                        <li class="mb-1">
+                          <span class="badge bg-success">+<%= component[:points] %></span>
+                          <%= component[:description] %>
+                          <% if component[:reason] %>
+                            <br/><small class="text-muted"><%= component[:reason] %></small>
+                          <% end %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+                
+                <% if breakdown.penalties.any? %>
+                  <div class="mb-2">
+                    <h6 class="text-danger mb-1">Penalties:</h6>
+                    <ul class="list-unstyled mb-0">
+                      <% breakdown.penalties.each do |component| %>
+                        <li class="mb-1">
+                          <span class="badge bg-danger"><%= component[:points] %></span>
+                          <%= component[:description] %>
+                          <% if component[:reason] %>
+                            <br/><small class="text-muted"><%= component[:reason] %></small>
+                          <% end %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+                
+                <hr/>
+                <div class="text-center">
+                  <%= science_score_badge(breakdown.final_score) %>
+                </div>
+              </div>
             </div>
           <% end %>
-
-          <% if @project.commits_data.present? %>
-            <div class="mb-2">
-              <strong>Repository Activity:</strong>
-              <% if @project.commits_data['commits_count'] %>
-                <%= number_with_delimiter(@project.commits_data['commits_count']) %> commits
-              <% end %>
-              <% if @project.commits_data['committers_count'] %>
-                by <%= @project.commits_data['committers_count'] %> contributors
-              <% end %>
-            </div>
-          <% end %>
-
-          <% if @project.repository_owner_record.present? %>
-            <div class="mb-2">
-              <strong>Repository Owner:</strong>
-              <% owner = @project.repository_owner_record %>
-              <%= owner['name'] %> (<%= owner['kind'] %>)
-              <% if owner['description'].present? %>
-                <br/><small class="text-muted"><%= owner['description'] %></small>
-              <% end %>
-              <% if @project.academic_owner? %>
-                <span class="badge bg-success ms-1">Academic</span>
-              <% elsif @project.institutional_owner? %>
-                <span class="badge bg-info ms-1">Institutional</span>
-              <% end %>
-            </div>
-          <% end %>
-
-          <% if @project.readme_content.present? %>
-            <div class="mb-2">
-              <strong>README Analysis:</strong>
-              <% readme_text = @project.readme_content.downcase %>
-              <% if readme_text.match?(/doi\.org\/10\.\d+/) %>
-                <span class="badge bg-success me-1">DOI Found</span>
-              <% end %>
-              <% if readme_text.match?(/arxiv\.org\/abs\/\d+/) %>
-                <span class="badge bg-success me-1">ArXiv Preprint</span>
-              <% end %>
-              <% if @project.package.dig('repo_metadata', 'metadata', 'files', 'citation').present? %>
-                <span class="badge bg-success me-1">CITATION.cff</span>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
 
   <% end %>
 
