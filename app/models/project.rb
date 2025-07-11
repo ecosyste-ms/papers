@@ -266,6 +266,7 @@ class Project < ApplicationRecord
   def fetch_enhanced_data
     fetch_commit_data
     fetch_readme_content
+    update_science_score!
   end
 
   def update_science_score!
