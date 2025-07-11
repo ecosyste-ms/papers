@@ -158,6 +158,23 @@
       </div>
     </div>
 
+  <% else %>
+
+    <div class="alert alert-warning" role="alert">
+      <h5 class="alert-heading">Package Data Not Found</h5>
+      <p>No package metadata could be found for this project. This could mean:</p>
+      <ul>
+        <li>The package doesn't exist in the <%= @project.ecosystem %> registry</li>
+        <li>The package name has changed or been removed</li>
+        <li>There was an error fetching the package data</li>
+      </ul>
+      <p class="mb-0">
+        <small class="text-muted">
+          Science scoring is not available without package metadata.
+        </small>
+      </p>
+    </div>
+
   <% end %>
 
   <h2>

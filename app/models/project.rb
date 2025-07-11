@@ -566,7 +566,11 @@ class Project < ApplicationRecord
       'mobile app', 'ios', 'android', 'react native', 'flutter',
       'marketing', 'advertising', 'seo', 'analytics', 'tracking',
       'business', 'crm', 'erp', 'hr', 'payroll', 'accounting',
-      'utility', 'system tool', 'file manager', 'backup', 'cleaner'
+      'utility', 'system tool', 'file manager', 'backup', 'cleaner',
+      'web framework', 'web application', 'web development', 'website builder',
+      'template', 'templating', 'scaffold', 'scaffolding', 'boilerplate',
+      'starter kit', 'project template', 'code generator', 'web server',
+      'http server', 'rest api', 'web service', 'microservice'
     ]
     
     all_text = [
@@ -778,7 +782,11 @@ class Project < ApplicationRecord
       'mobile app', 'ios', 'android', 'react native', 'flutter',
       'marketing', 'advertising', 'seo', 'analytics', 'tracking',
       'business', 'crm', 'erp', 'hr', 'payroll', 'accounting',
-      'utility', 'system tool', 'file manager', 'backup', 'cleaner'
+      'utility', 'system tool', 'file manager', 'backup', 'cleaner',
+      'web framework', 'web application', 'web development', 'website builder',
+      'template', 'templating', 'scaffold', 'scaffolding', 'boilerplate',
+      'starter kit', 'project template', 'code generator', 'web server',
+      'http server', 'rest api', 'web service', 'microservice'
     ]
     
     all_text = [
