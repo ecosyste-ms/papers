@@ -276,8 +276,16 @@ class Project < ApplicationRecord
   end
 
   def science_score_breakdown
-    # Return cached breakdown if available, otherwise calculate
-    return calculate_science_score_breakdown
+    # Calculate fresh breakdown (always show current logic)
+    breakdown = calculate_science_score_breakdown
+    
+    # If we have a cached score that differs from calculated, note the discrepancy
+    cached_score = read_attribute(:science_score)
+    if cached_score && cached_score != breakdown.final_score
+      breakdown.add_component(:base, "Cached score differs", 0, "Database has #{cached_score}, calculated #{breakdown.final_score}")
+    end
+    
+    breakdown
   end
 
   class ScienceScoreBreakdown

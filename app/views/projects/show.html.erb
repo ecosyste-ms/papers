@@ -105,7 +105,7 @@
           <% if breakdown.components.any? %>
             <div class="card">
               <div class="card-header">
-                <h6 class="card-title mb-0">Science Score: <%= breakdown.final_score %>/100</h6>
+                <h6 class="card-title mb-0">Science Score: <%= @project.science_score %>/100</h6>
               </div>
               <div class="card-body">
                 <div class="mb-2">
@@ -149,7 +149,7 @@
                 
                 <hr/>
                 <div class="text-center">
-                  <%= science_score_badge(breakdown.final_score) %>
+                  <%= science_score_badge(@project.science_score) %>
                 </div>
               </div>
             </div>
