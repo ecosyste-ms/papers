@@ -37,6 +37,7 @@ gem 'postgresql_cursor'
 gem 'csv'
 gem 'pdf-reader'
 gem 'ostruct'
+gem 'appsignal'
 
 group :development, :test do
   gem 'dotenv-rails'
