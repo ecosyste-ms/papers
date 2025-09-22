@@ -39,7 +39,9 @@ class Project < ApplicationRecord
   end
 
   def fetch_package_data
-    response = Faraday.get(ecosystems_api_url)
+    headers = {}
+    headers['X-API-Key'] = ENV['ECOSYSTEMS_API_KEY'] if ENV['ECOSYSTEMS_API_KEY']
+    response = Faraday.get(ecosystems_api_url, nil, headers)
     if response.status == 200
       JSON.parse(response.body)
     else
