@@ -44,7 +44,7 @@ module ApplicationHelper
 
   def science_score_badge(score)
     return unless score.present?
-    
+
     case score
     when 0..19
       badge_class = "bg-danger"  # Uses ecosyste.ms orange-dark
@@ -59,7 +59,13 @@ module ApplicationHelper
       badge_class = "bg-success"  # Uses ecosyste.ms green-dark
       badge_text = "Very Likely Science"
     end
-    
+
     content_tag(:span, "#{badge_text} (#{score})", class: "badge #{badge_class} me-2")
+  end
+
+  def bootstrap_icon(symbol, options = {})
+    return "" if symbol.nil?
+    icon = BootstrapIcons::BootstrapIcon.new(symbol, options)
+    content_tag(:svg, icon.path.html_safe, icon.options)
   end
 end
