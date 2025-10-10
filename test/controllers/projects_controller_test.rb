@@ -48,4 +48,24 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     get projects_ecosystem_url(ecosystem: 'pypi')
     assert_response :success
   end
+
+  test "should show no results message when search returns empty" do
+    get projects_url, params: { q: 'nonexistent-project-xyz' }
+    assert_response :success
+    assert_select '.alert-info', text: /No results found/
+    assert_select '.alert-info', text: /nonexistent-project-xyz/
+  end
+
+  test "should show no results message for ecosystem search with no matches" do
+    Project.create!(
+      ecosystem: 'pypi',
+      name: 'test-package',
+      package: { 'description' => 'Test description' }
+    )
+
+    get projects_ecosystem_url(ecosystem: 'pypi'), params: { q: 'nonexistent-xyz' }
+    assert_response :success
+    assert_select '.alert-info', text: /No results found/
+    assert_select '.alert-info', text: /nonexistent-xyz/
+  end
 end
