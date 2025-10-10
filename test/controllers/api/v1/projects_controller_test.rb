@@ -1,13 +1,8 @@
 require "test_helper"
 
-class ProjectsControllerTest < ActionDispatch::IntegrationTest
+class Api::V1::ProjectsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get projects_url
-    assert_response :success
-  end
-
-  test "should get show" do
-    get projects_url(projects(:one))
+    get api_v1_projects_url
     assert_response :success
   end
 
@@ -18,7 +13,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       package: { 'description' => 'Array computing library' }
     )
 
-    get projects_url, params: { q: 'numpy' }
+    get api_v1_projects_url, params: { q: 'numpy' }
     assert_response :success
   end
 
@@ -29,12 +24,12 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       package: { 'description' => 'Test description' }
     )
 
-    get projects_ecosystem_url(ecosystem: 'pypi'), params: { q: 'test' }
+    get api_v1_projects_ecosystem_url(ecosystem: 'pypi'), params: { q: 'test' }
     assert_response :success
   end
 
   test "index without search parameter should work" do
-    get projects_url
+    get api_v1_projects_url
     assert_response :success
   end
 
@@ -45,7 +40,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       package: { 'description' => 'Test description' }
     )
 
-    get projects_ecosystem_url(ecosystem: 'pypi')
+    get api_v1_projects_ecosystem_url(ecosystem: 'pypi')
     assert_response :success
   end
 end

@@ -9,6 +9,19 @@ class Project < ApplicationRecord
   scope :low_science_score, -> { where('science_score < ?', 20) }
   scope :by_science_score, -> { order(science_score: :desc) }
 
+  # Search scope
+  scope :search, ->(query) {
+    return all if query.blank?
+
+    where(
+      "name ILIKE :query OR
+       ecosystem ILIKE :query OR
+       package->>'description' ILIKE :query OR
+       package->'repo_metadata'->>'description' ILIKE :query",
+      query: "%#{sanitize_sql_like(query)}%"
+    )
+  }
+
   def ecosystems_url
     "https://packages.ecosyste.ms/registries/#{registry_url}/packages/#{name}"
   end

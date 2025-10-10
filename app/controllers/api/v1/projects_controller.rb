@@ -1,6 +1,7 @@
 class Api::V1::ProjectsController < Api::V1::ApplicationController
   def index
     scope = Project.all
+    scope = scope.search(params[:q]) if params[:q].present?
 
     if params[:sort].present? || params[:order].present?
       sort = params[:sort] || 'mentions_count'
@@ -14,6 +15,7 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
 
   def ecosystem
     scope = Project.where(ecosystem: params[:ecosystem])
+    scope = scope.search(params[:q]) if params[:q].present?
 
     if params[:sort].present? || params[:order].present?
       sort = params[:sort] || 'mentions_count'

@@ -1,10 +1,11 @@
 class ProjectsController < ApplicationController
   def index
     scope = Project.all
+    scope = scope.search(params[:q]) if params[:q].present?
 
     if params[:sort].present? || params[:order].present?
       sort = params[:sort].presence || 'mentions_count'
-      
+
       if params[:order] == 'asc'
         scope = scope.order(Arel.sql(sort).asc.nulls_last)
       else
@@ -19,10 +20,11 @@ class ProjectsController < ApplicationController
 
   def ecosystem
     scope = Project.where(ecosystem: params[:ecosystem])
+    scope = scope.search(params[:q]) if params[:q].present?
 
     if params[:sort].present? || params[:order].present?
       sort = params[:sort].presence || 'mentions_count'
-      
+
       if params[:order] == 'asc'
         scope = scope.order(Arel.sql(sort).asc.nulls_last)
       else

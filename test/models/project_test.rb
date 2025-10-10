@@ -402,7 +402,7 @@ class ProjectTest < ActiveSupport::TestCase
         'keywords' => []
       }
     )
-    
+
     # Should not get description penalty due to "bioinformatics"
     # Base 100 - 10 (PyPI) - 15 (no keywords) + 0 (has science term in description) = 75
     assert_equal 75, project_with_bioinformatics.science_score
@@ -416,9 +416,108 @@ class ProjectTest < ActiveSupport::TestCase
         'keywords' => ['bioinformatics', 'scientific']
       }
     )
-    
+
     # Should not get keyword penalty due to science keywords
     # Base 100 - 10 (PyPI) + 0 (has science keywords) - 10 (no science description) = 80
     assert_equal 80, project_with_keywords.science_score
+  end
+
+  test "search finds projects by name" do
+    project = Project.create!(
+      ecosystem: 'pypi',
+      name: 'numpy',
+      package: { 'description' => 'Array computing library' }
+    )
+
+    results = Project.search('numpy')
+    assert_includes results, project
+
+    results = Project.search('nump')
+    assert_includes results, project
+  end
+
+  test "search finds projects by ecosystem" do
+    project = Project.create!(
+      ecosystem: 'pypi',
+      name: 'test-package',
+      package: { 'description' => 'Test package' }
+    )
+
+    results = Project.search('pypi')
+    assert_includes results, project
+  end
+
+  test "search finds projects by description" do
+    project = Project.create!(
+      ecosystem: 'pypi',
+      name: 'test-package',
+      package: { 'description' => 'bioinformatics analysis tool' }
+    )
+
+    results = Project.search('bioinformatics')
+    assert_includes results, project
+
+    results = Project.search('analysis')
+    assert_includes results, project
+  end
+
+  test "search finds projects by repo metadata description" do
+    project = Project.create!(
+      ecosystem: 'pypi',
+      name: 'test-package',
+      package: {
+        'description' => 'Simple package',
+        'repo_metadata' => { 'description' => 'advanced genomics tool' }
+      }
+    )
+
+    results = Project.search('genomics')
+    assert_includes results, project
+  end
+
+  test "search is case insensitive" do
+    project = Project.create!(
+      ecosystem: 'pypi',
+      name: 'NumPy',
+      package: { 'description' => 'Array Computing Library' }
+    )
+
+    assert_includes Project.search('numpy'), project
+    assert_includes Project.search('NUMPY'), project
+    assert_includes Project.search('NuMpY'), project
+    assert_includes Project.search('array'), project
+    assert_includes Project.search('ARRAY'), project
+  end
+
+  test "search returns all projects when query is blank" do
+    project1 = Project.create!(
+      ecosystem: 'pypi',
+      name: 'test1',
+      package: { 'description' => 'Test 1' }
+    )
+    project2 = Project.create!(
+      ecosystem: 'cran',
+      name: 'test2',
+      package: { 'description' => 'Test 2' }
+    )
+
+    results = Project.search('')
+    assert_includes results, project1
+    assert_includes results, project2
+
+    results = Project.search(nil)
+    assert_includes results, project1
+    assert_includes results, project2
+  end
+
+  test "search returns empty when no matches" do
+    Project.create!(
+      ecosystem: 'pypi',
+      name: 'test-package',
+      package: { 'description' => 'Test package' }
+    )
+
+    results = Project.search('nonexistent-term-xyz')
+    assert_equal 0, results.count
   end
 end
