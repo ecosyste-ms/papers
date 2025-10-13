@@ -1,44 +1,62 @@
-FROM ruby:3.4.6-slim
+# Build stage
+FROM ruby:3.4.7-alpine AS builder
 
 ENV APP_ROOT=/usr/src/app
 ENV DATABASE_PORT=5432
 WORKDIR $APP_ROOT
 
-# * Setup system
-# * Install Ruby dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
+# Install build dependencies
+RUN apk add --no-cache \
+    build-base \
     git \
     nodejs \
-    libpq-dev \
+    postgresql-dev \
     tzdata \
-    curl \
-    libyaml-dev \
-    libcurl4-openssl-dev \
-    libjemalloc2 \
- && rm -rf /var/lib/apt/lists/*
+    curl-dev \
+    yaml-dev
 
-ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 ENV RUBY_YJIT_ENABLE=1
 
-# Will invalidate cache as soon as the Gemfile changes
+# Install gems
 COPY Gemfile Gemfile.lock .ruby-version $APP_ROOT/
-
 RUN bundle config --global frozen 1 \
  && bundle config set without 'test' \
  && bundle install --jobs 2
 
+# Copy application code
+COPY . $APP_ROOT
+
+# Precompile bootsnap and assets
+RUN bundle exec bootsnap precompile --gemfile app/ lib/
+RUN SECRET_KEY_BASE=1 RAILS_ENV=production bundle exec rake assets:precompile
+
 # ========================================================
-# Application layer
+# Final stage
+FROM ruby:3.4.7-alpine
+
+ENV APP_ROOT=/usr/src/app
+ENV DATABASE_PORT=5432
+ENV LD_PRELOAD=/usr/lib/libjemalloc.so.2
+ENV RUBY_YJIT_ENABLE=1
+WORKDIR $APP_ROOT
+
+# Install runtime dependencies only
+RUN apk add --no-cache \
+    nodejs \
+    postgresql-libs \
+    tzdata \
+    curl \
+    yaml \
+    jemalloc
+
+# Copy gems from builder
+COPY --from=builder /usr/local/bundle /usr/local/bundle
 
 # Copy application code
 COPY . $APP_ROOT
 
-RUN bundle exec bootsnap precompile --gemfile app/ lib/
+# Copy precompiled assets and bootsnap cache from builder
+COPY --from=builder $APP_ROOT/public/assets $APP_ROOT/public/assets
+COPY --from=builder $APP_ROOT/tmp $APP_ROOT/tmp
 
-# Precompile assets for a production environment.
-# This is done to include assets in production images on Dockerhub.
-RUN SECRET_KEY_BASE=1 RAILS_ENV=production bundle exec rake assets:precompile
-
-# Startup
 CMD ["bin/docker-start"]
