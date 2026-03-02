@@ -4,12 +4,11 @@ class ProjectsController < ApplicationController
     scope = scope.search(params[:q]) if params[:q].present?
 
     if params[:sort].present? || params[:order].present?
-      sort = params[:sort].presence || 'mentions_count'
-
+      sort = sanitize_sort(Project.sortable_columns, default: 'mentions_count')
       if params[:order] == 'asc'
-        scope = scope.order(Arel.sql(sort).asc.nulls_last)
+        scope = scope.order(sort.asc.nulls_last)
       else
-        scope = scope.order(Arel.sql(sort).desc.nulls_last)
+        scope = scope.order(sort.desc.nulls_last)
       end
     else
       scope = scope.order('mentions_count DESC nulls last')
@@ -23,12 +22,11 @@ class ProjectsController < ApplicationController
     scope = scope.search(params[:q]) if params[:q].present?
 
     if params[:sort].present? || params[:order].present?
-      sort = params[:sort].presence || 'mentions_count'
-
+      sort = sanitize_sort(Project.sortable_columns, default: 'mentions_count')
       if params[:order] == 'asc'
-        scope = scope.order(Arel.sql(sort).asc.nulls_last)
+        scope = scope.order(sort.asc.nulls_last)
       else
-        scope = scope.order(Arel.sql(sort).desc.nulls_last)
+        scope = scope.order(sort.desc.nulls_last)
       end
     else
       scope = scope.order('mentions_count DESC nulls last')

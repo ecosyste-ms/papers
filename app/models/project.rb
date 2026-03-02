@@ -1,4 +1,14 @@
 class Project < ApplicationRecord
+  def self.sortable_columns
+    {
+      'mentions_count' => 'mentions_count',
+      'name' => 'name',
+      'created_at' => 'created_at',
+      'updated_at' => 'updated_at',
+      'science_score' => 'science_score',
+    }
+  end
+
   has_many :mentions
   has_many :papers, through: :mentions
 
