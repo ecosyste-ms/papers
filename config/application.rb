@@ -26,6 +26,10 @@ module Papers
     config.exceptions_app = self.routes
     config.active_support.to_time_preserves_timezone = :zone
 
+    config.session_store :disabled
+    config.middleware.delete ActionDispatch::Session::CookieStore
+    config.middleware.delete ActionDispatch::Cookies
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
