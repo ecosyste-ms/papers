@@ -24,7 +24,6 @@ module Papers
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.exceptions_app = self.routes
-    config.active_support.to_time_preserves_timezone = :zone
 
     config.session_store :disabled
     config.middleware.delete ActionDispatch::Session::CookieStore
