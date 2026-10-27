@@ -8,6 +8,7 @@
       <%= meta_title %>
     </title>
     <meta name="description" content="<%= meta_description %>">
+    <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,8 +20,24 @@
   </head>
   <body>
 		<%= render 'shared/header' %>
-		
+
     <div class="main">
+      <% if flash[:notice] %>
+        <div class="container mt-3">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= flash[:notice] %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="container mt-3">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= flash[:alert] %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      <% end %>
       <%= yield %>
     </div>
 
